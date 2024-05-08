@@ -97,6 +97,13 @@
                     placeholder="输入关键字搜索"/>
                 </template>
                 <template slot-scope="scope">
+                  <el-button 
+                  size="mini"
+                  type="success"
+                  @click="handleCopy(scope.row.name)"
+                  >
+                    复制链接
+                  </el-button>
                   <el-button
                     size="mini"
                     type="primary"
@@ -140,6 +147,19 @@
         password:'123456'
       },
       methods: {
+      handleCopy(name){
+        // 创建一个文本元素
+        var textElement = document.createElement('textarea');
+        textElement.value = window.location.origin+"/file/"+name;
+        // 将文本元素添加到页面中
+        document.body.appendChild(textElement);
+        // 选择文本元素中的文本
+        textElement.select();
+        // 执行复制操作
+        document.execCommand('copy');
+        // 移除文本元素
+        document.body.removeChild(textElement);
+      },
       handleBlock(index,key) {
         console.log(key);
         if (confirm("确认加入黑名单吗?")) {
@@ -263,7 +283,8 @@ fetch("./api/manage/list", requestOptions)
     }
     })
     
-  </script><!-- Hotjar Tracking Code -->
+  </script>
+<!-- Hotjar Tracking Code -->
 <script>
     (function(h,o,t,j,a,r){
         h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
